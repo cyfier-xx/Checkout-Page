@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .left-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .right-column {
+            width: 400px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #8BC34A;
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 20px 0;
+        }
+        
+        .order-summary {
+            margin-bottom: 20px;
+        }
+        
+        .product {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f5f5f5;
+            margin-right: 15px;
+        }
+        
+        .product-details h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .product-specs {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            color: #8BC34A;
+        }
+        
+        .payment-methods {
+            margin-top: 30px;
+        }
+        
+        .payment-title {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .payment-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-option {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            width: 120px;
+            cursor: pointer;
+        }
+        
+        .payment-option.selected {
+            border: 2px solid #8BC34A;
+        }
+        
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .payment-label {
+            font-size: 12px;
+        }
+        
+        .complete-button {
+            background-color: #8BC34A;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            width: auto;
+            margin-right: 8px;
+            margin-bottom: 0;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%;
+            background-size: 12px auto;
+            padding-right: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="card">
+                <h2>Personal Details</h2>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                    
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email">
+                    
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Shipping Address</h2>
+                <div>
+                    <label for="address">Delivery Address</label>
+                    <input type="text" id="address" name="address">
+                    
+                    <div class="row">
+                        <div class="column">
+                            <label for="state">State</label>
+                            <select id="state" name="state">
+                                <option value="">select state...</option>
+                            </select>
+                        </div>
+                        <div class="column">
+                            <label for="city">City</label>
+                            <select id="city" name="city">
+                                <option value="">select city...</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="column">
+                            <label for="country">Country</label>
+                            <select id="country" name="country">
+                                <option value="Nigeria">Nigeria</option>
+                            </select>
+                        </div>
+                        <div class="column">
+                            <label for="zip">Zip Code</label>
+                            <input type="text" id="zip" name="zip" placeholder="Enter Zip Code">
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div>
+                        <label>Delivery Method</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="doorDelivery" name="deliveryMethod" checked>
+                                <label for="doorDelivery">Door Delivery</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="pickup" name="deliveryMethod">
+                                <label for="pickup">Pickup</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-column">
+            <div class="card">
+                <h2>Order Summary</h2>
+                <div class="order-summary">
+                    <div class="product">
+                        <div class="product-image"></div>
+                        <div class="product-details">
+                            <h3>Samsung Galaxy S25 Ultra</h3>
+                            <p class="product-specs">Specification</p>
+                            <p class="product-specs">ROM: 1TB</p>
+                            <p class="product-specs">RAM: 24GB</p>
+                            <p class="product-specs">Color: Black</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p>Qty:1</p>
+                        </div>
+                    </div>
+                    
+                    <div class="order-total">
+                        <span>Subtotal:</span>
+                        <span>₦2,500,000.00</span>
+                    </div>
+                    <div class="order-total">
+                        <span>Shipping:</span>
+                        <span>₦3,000.00</span>
+                    </div>
+                    <div class="order-total">
+                        <span>Tax:</span>
+                        <span>₦0.00</span>
+                    </div>
+                    <div class="order-total total-row">
+                        <span>Total:</span>
+                        <span>₦2,503,000.00</span>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="payment-methods">
+                    <h3 class="payment-title">Payment Method</h3>
+                    <p class="payment-subtitle">select a method of payment</p>
+                    
+                    <div class="payment-options">
+                        <div class="payment-option selected">
+                            <div class="payment-icon">🏦</div>
+                            <div class="payment-label">Bank Transfer</div>
+                        </div>
+                        <div class="payment-option">
+                            <div class="payment-icon">💵</div>
+                            <div class="payment-label">Pay on Delivery</div>
+                        </div>
+                    </div>
+                    
+                    <button class="complete-button" style="font-weight: bold; font-size: 20px;">Complete Order!</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
